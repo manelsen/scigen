@@ -258,4 +258,61 @@ subtest 'biology profile overrides new wrapper rules' => {
        'DOMAIN_MEMORY_TYPE includes biology-specific buffers';
 }
 
+subtest 'infrastructure wrapper rules exist as aliases' => {
+    my $book = load-rules('scirules.in');
+    ok $book.alternatives('DOMAIN_PRIVILEGE').elems > 0, 'DOMAIN_PRIVILEGE rule exists';
+    ok $book.alternatives('DOMAIN_DESKTOP').elems > 0, 'DOMAIN_DESKTOP rule exists';
+    ok $book.alternatives('DOMAIN_MEASURABLE_SYSTEM').elems > 0, 'DOMAIN_MEASURABLE_SYSTEM rule exists';
+    ok $book.alternatives('DOMAIN_WARE').elems > 0, 'DOMAIN_WARE rule exists';
+    ok $book.alternatives('DOMAIN_TOOLCHAIN').elems > 0, 'DOMAIN_TOOLCHAIN rule exists';
+    ok $book.alternatives('DOMAIN_BANDWIDTH_TYPE').elems > 0, 'DOMAIN_BANDWIDTH_TYPE rule exists';
+    ok $book.alternatives('DOMAIN_SW_PLATFORM').elems > 0, 'DOMAIN_SW_PLATFORM rule exists';
+    ok $book.alternatives('DOMAIN_SOFTWARE_SYSTEM').elems > 0, 'DOMAIN_SOFTWARE_SYSTEM rule exists';
+}
+
+subtest 'biology profile overrides infrastructure wrappers' => {
+    my $book = load-rules('scirules.in');
+    apply-domain($book, 'biology');
+
+    my @priv = $book.alternatives('DOMAIN_PRIVILEGE').list.map(*.Str);
+    ok @priv.elems > 0, 'DOMAIN_PRIVILEGE has biology entries';
+    ok @priv.grep(/'credentials'|'authorization'/).elems > 0,
+       'DOMAIN_PRIVILEGE includes biology-specific access terms';
+
+    my @desk = $book.alternatives('DOMAIN_DESKTOP').list.map(*.Str);
+    ok @desk.elems > 0, 'DOMAIN_DESKTOP has biology entries';
+    ok @desk.grep(/'workstation'|'bench'|'analysis'/).elems > 0,
+       'DOMAIN_DESKTOP includes biology-specific workstations';
+
+    my @meas = $book.alternatives('DOMAIN_MEASURABLE_SYSTEM').list.map(*.Str);
+    ok @meas.elems > 3, 'DOMAIN_MEASURABLE_SYSTEM has biology entries';
+    ok @meas.grep(/'sequencer'|'plate reader'|'spectrometer'/).elems > 0,
+       'DOMAIN_MEASURABLE_SYSTEM includes biology-specific instruments';
+
+    my @ware = $book.alternatives('DOMAIN_WARE').list.map(*.Str);
+    ok @ware.elems > 0, 'DOMAIN_WARE has biology entries';
+    ok @ware.grep(/'wetware'|'lab software'|'framework'/).elems > 0,
+       'DOMAIN_WARE includes biology-specific platform terms';
+
+    my @tool = $book.alternatives('DOMAIN_TOOLCHAIN').list.map(*.Str);
+    ok @tool.elems > 0, 'DOMAIN_TOOLCHAIN has biology entries';
+    ok @tool.grep(/'pipeline'|'runner'|'workflow'/).elems > 0,
+       'DOMAIN_TOOLCHAIN includes biology-specific tools';
+
+    my @bw = $book.alternatives('DOMAIN_BANDWIDTH_TYPE').list.map(*.Str);
+    ok @bw.elems > 0, 'DOMAIN_BANDWIDTH_TYPE has biology entries';
+    ok @bw.grep(/'throughput'|'transfer'|'bandwidth'/).elems > 0,
+       'DOMAIN_BANDWIDTH_TYPE includes biology-specific throughput terms';
+
+    my @plat = $book.alternatives('DOMAIN_SW_PLATFORM').list.map(*.Str);
+    ok @plat.elems > 0, 'DOMAIN_SW_PLATFORM has biology entries';
+    ok @plat.grep(/'platform'|'controller'|'information system'/).elems > 0,
+       'DOMAIN_SW_PLATFORM includes biology-specific platforms';
+
+    my @sys = $book.alternatives('DOMAIN_SOFTWARE_SYSTEM').list.map(*.Str);
+    ok @sys.elems > 0, 'DOMAIN_SOFTWARE_SYSTEM has biology entries';
+    ok @sys.grep(/'information system'|'pipeline'|'management'/).elems > 0,
+       'DOMAIN_SOFTWARE_SYSTEM includes biology-specific systems';
+}
+
 done-testing;

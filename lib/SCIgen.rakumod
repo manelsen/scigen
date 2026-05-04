@@ -292,6 +292,14 @@ sub domain-ai-prompt(Str:D $domain --> Str) is export {
     - DOMAIN_MEMORY_TYPE: 4 entries — domain-specific buffer or reagent quantities (e.g., "sample buffer", "reagent stock")
     - DOMAIN_PROCESSOR_TYPE: 7 entries — domain-specific processing/analysis instruments (e.g., "sequencing core", "mass spectrometer")
     - DOMAIN_SW_PROP: 5 entries — domain-specific software or pipeline properties (e.g., "throughput", "sensitivity")
+    - DOMAIN_PRIVILEGE: 3 entries — domain-specific access/authorization terms (e.g., "elevated credentials", "instrument authorization")
+    - DOMAIN_DESKTOP: 3 entries — domain-specific workstation types (e.g., "lab workstations", "analysis machines")
+    - DOMAIN_MEASURABLE_SYSTEM: 8 entries — domain-specific systems or services to measure (e.g., "sequencer", "plate reader")
+    - DOMAIN_WARE: 5 entries — domain-specific platform or middleware terms (e.g., "wetware", "analysis framework")
+    - DOMAIN_TOOLCHAIN: 4 entries — domain-specific build or pipeline tools (e.g., "Nextflow runner", "standard analysis suite")
+    - DOMAIN_BANDWIDTH_TYPE: 3 entries — domain-specific throughput or transfer terms (e.g., "data transfer rate", "instrument bandwidth")
+    - DOMAIN_SW_PLATFORM: 5 entries — domain-specific software platform names (e.g., "analysis platform", "instrument controller")
+    - DOMAIN_SOFTWARE_SYSTEM: 4 entries — domain-specific software systems (e.g., "laboratory information system", "data management platform")
 
     Requirements:
     - All entries must be realistic and specific to the {$domain} domain
@@ -377,13 +385,25 @@ sub freeze-paper-terms(RuleBook:D $book, Int :$seed --> RuleBook) is export {
     my $thing-s  = expand($book, 'SCI_THING_S', $rng).trim;
     my $thing-p  = expand($book, 'SCI_THING_P', $rng).trim;
     my $buzz-noun = expand($book, 'SCI_BUZZWORD_NOUN', $rng).trim;
-    my $buzz-adj = expand($book, 'SCI_BUZZWORD_ADJ', $rng).trim;
+    my $buzz-adj  = expand($book, 'SCI_BUZZWORD_ADJ', $rng).trim;
+    my $buzz-adj2 = expand($book, 'SCI_BUZZWORD_ADJ', $rng).trim;
+    my $buzz-adj3 = expand($book, 'SCI_BUZZWORD_ADJ', $rng).trim;
+    # Ensure distinct adjectives so templates like "ADJ, ADJ_2, and ADJ_3"
+    # don't produce "modular, modular, and modular".
+    while $buzz-adj2 eq $buzz-adj {
+        $buzz-adj2 = expand($book, 'SCI_BUZZWORD_ADJ', $rng).trim;
+    }
+    while $buzz-adj3 eq $buzz-adj || $buzz-adj3 eq $buzz-adj2 {
+        $buzz-adj3 = expand($book, 'SCI_BUZZWORD_ADJ', $rng).trim;
+    }
 
     $book.set-rule('SCI_FIELD', $field);
     $book.set-rule('SCI_THING_S', $thing-s);
     $book.set-rule('SCI_THING_P', $thing-p);
     $book.set-rule('SCI_BUZZWORD_NOUN', $buzz-noun);
     $book.set-rule('SCI_BUZZWORD_ADJ', $buzz-adj);
+    $book.set-rule('SCI_BUZZWORD_ADJ_2', $buzz-adj2);
+    $book.set-rule('SCI_BUZZWORD_ADJ_3', $buzz-adj3);
 
     # Create synthetic rule for the thesis topic phrase
     my $thesis = "$buzz-adj $buzz-noun for $thing-s in $field";

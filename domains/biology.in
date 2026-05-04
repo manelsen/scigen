@@ -197,3 +197,54 @@ DOMAIN_SW_PROP	sensitivity
 DOMAIN_SW_PROP	specificity
 DOMAIN_SW_PROP	reproducibility
 DOMAIN_SW_PROP	pipeline architecture
+
+# Domain-specific privilege/access terms
+DOMAIN_PRIVILEGE	elevated credentials
+DOMAIN_PRIVILEGE	administrator access
+DOMAIN_PRIVILEGE	instrument authorization
+
+# Domain-specific workstations
+DOMAIN_DESKTOP	lab workstations
+DOMAIN_DESKTOP	analysis machines
+DOMAIN_DESKTOP	bench computers
+
+# Domain-specific measurable systems
+DOMAIN_MEASURABLE_SYSTEM	sequencer
+DOMAIN_MEASURABLE_SYSTEM	plate reader
+DOMAIN_MEASURABLE_SYSTEM	mass spectrometer
+DOMAIN_MEASURABLE_SYSTEM	flow cytometer
+DOMAIN_MEASURABLE_SYSTEM	chromatograph
+DOMAIN_MEASURABLE_SYSTEM	microscope stage
+DOMAIN_MEASURABLE_SYSTEM	spectrophotometer
+DOMAIN_MEASURABLE_SYSTEM	qPCR instrument
+
+# Domain-specific -ware/platform terms
+DOMAIN_WARE	wetware
+DOMAIN_WARE	lab software
+DOMAIN_WARE	analysis framework
+DOMAIN_WARE	pipeline middleware
+DOMAIN_WARE	bioinformatics suite
+
+# Domain-specific toolchain
+DOMAIN_TOOLCHAIN	Bioconductor pipeline
+DOMAIN_TOOLCHAIN	Nextflow runner
+DOMAIN_TOOLCHAIN	Snakemake workflow
+DOMAIN_TOOLCHAIN	standard analysis suite
+
+# Domain-specific bandwidth/throughput terms
+DOMAIN_BANDWIDTH_TYPE	sequencing throughput
+DOMAIN_BANDWIDTH_TYPE	data transfer rate
+DOMAIN_BANDWIDTH_TYPE	instrument bandwidth
+
+# Domain-specific software platforms
+DOMAIN_SW_PLATFORM	analysis platform
+DOMAIN_SW_PLATFORM	instrument controller
+DOMAIN_SW_PLATFORM	lab information system
+DOMAIN_SW_PLATFORM	data management suite
+DOMAIN_SW_PLATFORM	pipeline orchestrator
+
+# Domain-specific software systems
+DOMAIN_SOFTWARE_SYSTEM	laboratory information system
+DOMAIN_SOFTWARE_SYSTEM	sequencing pipeline
+DOMAIN_SOFTWARE_SYSTEM	data management platform
+DOMAIN_SOFTWARE_SYSTEM	SCI_THING
