@@ -64,6 +64,72 @@ SCIPAPER_LATEX {
 
 }
 
+SCIPAPER_LATEX {
+
+ LATEX_HEADER
+
+ SCI_ABSTRACT
+
+ SCI_INTRO
+
+ SCI_MODEL
+
+ SCI_EVAL
+
+ SCI_IMPL
+
+ SCI_RELWORK
+
+ SCI_CONCL
+
+ LATEX_FOOTER
+
+}
+
+SCIPAPER_LATEX {
+
+ LATEX_HEADER
+
+ SCI_ABSTRACT
+
+ SCI_INTRO
+
+ SCI_IMPL
+
+ SCI_MODEL
+
+ SCI_EVAL
+
+ SCI_RELWORK
+
+ SCI_CONCL
+
+ LATEX_FOOTER
+
+}
+
+SCIPAPER_LATEX {
+
+ LATEX_HEADER
+
+ SCI_ABSTRACT
+
+ SCI_INTRO
+
+ SCI_RELWORK
+
+ SCI_MODEL
+
+ SCI_IMPL
+
+ SCI_EVAL
+
+ SCI_CONCL
+
+ LATEX_FOOTER
+
+}
+
 #############################################################################
 ####### Titles #######
 #############################################################################
@@ -129,6 +195,9 @@ SCI_AB_A_START SCI_IN_THIS_PAPER, we SCI_PROVE_VERB
 SCI_AB_A_START in fact, few SCI_PEOPLE would disagree with
 SCI_AB_A_START given the current status of SCI_BUZZWORD_ADJ SCI_BUZZWORD_NOUN, SCI_PEOPLE SCI_ADJ_ADV desire
 SCI_AB_A_START after years of SCI_ADJ research into SCI_THING_MOD, we SCI_PROVE_VERB
+SCI_AB_A_START	building on prior work in SCI_FIELD, we SCI_PROVE_VERB
+SCI_AB_A_START	motivated by the need for SCI_ADJ SCI_THING_MOD, we SCI_PROVE_VERB
+SCI_AB_A_START	to address the SCI_ADJ challenges of SCI_THING_MOD, we SCI_PROVE_VERB
 
 SCI_AB_A_END
 SCI_AB_A_END , which embodies the SCI_ADJ principles of SCI_FIELD
@@ -240,6 +309,12 @@ SCI_IPF_ORG+3 the rest of this paper is organized as follows.
 SCI_IPF_ORG we proceed as follows.
 SCI_IPF_ORG the rest of the paper proceeds as follows.
 SCI_IPF_ORG the roadmap of the paper is as follows.
+SCI_IPF_ORG	we structure the paper as follows.
+SCI_IPF_ORG	the paper is laid out as follows.
+SCI_IPF_ORG	we outline our contributions below.
+SCI_IPF_ORG	the subsequent sections detail our approach.
+SCI_IPF_ORG	this paper makes the following contributions.
+SCI_IPF_ORG	what follows is a structured overview of our work.
 
 SCI_IPF_FIRST LIT_FIRST we motivate the need for SCI_THING_MOD.
 
@@ -249,6 +324,10 @@ SCI_IPF_MID LIT_MIDDLE_TWO SCI_IPF_MID_B XXX LIT_MIDDLE_3 SCI_IPF_MID_B XXX LIT_
 SCI_IPF_MID_B SCI_IPF_MID_REL
 SCI_IPF_MID_B we SCI_PROVE_VERB the SCI_ACT 
 SCI_IPF_MID_B to SCI_SOLVE_CLAUSE, SCI_GENERIC_THESIS 
+SCI_IPF_MID_B	we place our work in context with the previous work in this area
+SCI_IPF_MID_B	we verify the SCI_ACT
+SCI_IPF_MID_B	we demonstrate that SCI_THING_MOD can SCI_VERB SCI_GENERIC_NOUN
+SCI_IPF_MID_B	we validate our SCI_ADJ claims about SCI_THING_MOD
 SCI_IPF_MID_REL we place our work in context with the RELATED work in this area
 
 
@@ -267,6 +346,10 @@ SCI_INTRO_A	Recent advances in SCI_BUZZWORD_ADJ SCI_BUZZWORD_NOUN and SCI_BUZZWO
 SCI_INTRO_A	Many SCI_PEOPLE would agree that, had it not been for SCI_THING, the SCI_ACT might never have occurred XXX
 SCI_INTRO_A	The implications of SCI_BUZZWORD_ADJ SCI_BUZZWORD_NOUN have been far-reaching and pervasive XXX
 SCI_INTRO_A	Unified SCI_BUZZWORD_ADJ SCI_BUZZWORD_NOUN have led to many SCI_ADJ advances, including SCI_THING_MOD and SCI_THING_MOD  XXX
+SCI_INTRO_A	Recent work in SCI_FIELD has highlighted the importance of SCI_THING_MOD for the SCI_ACT XXX
+SCI_INTRO_A	Despite significant progress in SCI_BUZZWORD_ADJ SCI_BUZZWORD_NOUN, the SCI_ACT remains an open SCI_PROBLEM XXX
+SCI_INTRO_A	A growing body of evidence suggests that SCI_THING_MOD can be improved through SCI_BUZZWORD_ADJ SCI_BUZZWORD_NOUN XXX
+SCI_INTRO_A	The emergence of SCI_BUZZWORD_ADJ SCI_BUZZWORD_NOUN has created new opportunities for SCI_THING_MOD XXX
 
 SCI_INTRO_ACT offer a viable alternative to
 SCI_INTRO_ACT have paved the way for
@@ -995,9 +1078,9 @@ EVAL_SEC_HYPOTHESIS 	that SCI_THING_HAS actually shown DIFFERENT EVAL_MEASUREMEN
 
 EVAL_SEC_HYPOTHESIS 	that we can do LITTLE to AFFECT a SCI_SYSTEM's PROP_OR_MEASUREMENT_NO_SYSTEM
 
-EVAL_SEC_HYPOTHESIS	that the OLD_MACHINE of yesteryear actually exhibits better EVAL_MEASUREMENT than today's hardware
+EVAL_SEC_HYPOTHESIS	that the DOMAIN_MACHINE of yesteryear actually exhibits better EVAL_MEASUREMENT than today's hardware
 
-EVAL_SEC_HYPOTHESIS	that EVAL_MEASUREMENT stayed constant across successive generations of OLD_MACHINEs
+EVAL_SEC_HYPOTHESIS	that EVAL_MEASUREMENT stayed constant across successive generations of DOMAIN_MACHINEs
 
 EVAL_SEC_HYPOTHESIS	that HARDWARE_PROP behaves fundamentally differently on our EXP_WHERE
 
@@ -1078,6 +1161,8 @@ EVALUATING		evaluating
 EVALUATING		measuring
 EVALUATING		analyzing
 
+DOMAIN_TOOL_VERB	HACK_VERBING
+
 HACK_VERBING		patching
 HACK_VERBING		refactoring
 HACK_VERBING		reprogramming
@@ -1150,6 +1235,8 @@ NETWORK_TYPE_N	10
 NETWORK_TYPE_N	100
 NETWORK_TYPE_N	1000
 
+DOMAIN_NETWORK	NETWORK_TYPE
+
 NETWORK_TYPE	Internet
 NETWORK_TYPE	Internet-2
 NETWORK_TYPE	Planetlab
@@ -1188,6 +1275,8 @@ EXP_WHERE_CMN	network
 EXP_WHERE_CMN+4	EXP_WHERE_ADJ EXP_WHERE_UM
 
 # rare places
+DOMAIN_MACHINE	OLD_MACHINE
+
 OLD_MACHINE	Macintosh SE
 OLD_MACHINE	UNIVAC
 OLD_MACHINE	Apple ][e
@@ -1200,7 +1289,7 @@ OLD_MACHINE	Commodore 64
 OLD_MACHINE	NeXT Workstation
 OLD_MACHINE	LISP machine
 OLD_MACHINE	PDP 11
-EXP_WHERE_RARE	decommissioned OLD_MACHINEs
+EXP_WHERE_RARE	decommissioned DOMAIN_MACHINEs
 EXP_WHERE_RARE	XBox network
 EXP_WHERE_RARE	human test subjects
 
@@ -1209,7 +1298,7 @@ EXP_WHERE+8	EXP_WHERE_CMN
 
 
 EXP_WHERE_ADJ	SCI_BUZZWORD_ADJ
-EXP_WHERE_ADJ	NETWORK_TYPE
+EXP_WHERE_ADJ	DOMAIN_NETWORK
 EXP_WHOSE	MIT's
 EXP_WHOSE	UC Berkeley's
 EXP_WHOSE	CERN's
@@ -1513,8 +1602,9 @@ EVAL_SEC_SOFTWARE_REST  LIT_MIDDLE_3 EVAL_SEC_SOFTWARE_MOD XXX EVAL_SEC_SOFTWARE
 EVAL_SEC_SOFTWARE_MOD	EVAL_WHO added support for SCI_OUR_SYSTEM as a KERNEL_MODULE
 EVAL_SEC_SOFTWARE_MOD	all software components were COMPILED using TOOLCHAIN LINKER_SUFFIX
 EVAL_SEC_SOFTWARE_MOD	all software was COMPILED using TOOLCHAIN LINKER_SUFFIX
-EVAL_SEC_SOFTWARE_MOD   our experiments soon proved that HACK_VERBING our EVAL_ITEMS_P was more effective than HACK_VERBING them, as previous work suggested
+EVAL_SEC_SOFTWARE_MOD   our experiments soon proved that DOMAIN_TOOL_VERB our EVAL_ITEMS_P was more effective than DOMAIN_TOOL_VERB them, as previous work suggested
 EVAL_SEC_SOFTWARE_MOD	we implemented our SCI_THING_S server in LANGUAGE, augmented with SCI_MATH_ADV SCI_MATH_ADJ extensions
+EVAL_SEC_SOFTWARE_MOD	we implemented our SCI_THING_S server in DOMAIN_LANGUAGE, augmented with SCI_MATH_ADV SCI_MATH_ADJ extensions
 
 LINKER_SUFFIX		linked against SCI_BUZZWORD_ADJ libraries for SCI_VERBING SCI_THING_MOD
 LINKER_SUFFIX		with the help of SCI_SOURCE's libraries for SCI_MATH_ADV SCI_VERBING EVAL_ITEMS
@@ -1545,6 +1635,8 @@ LICENSE_TYPE		open source
 LICENSE_TYPE		CITE_INST
 LICENSE_TYPE		write-only
 
+DOMAIN_LANGUAGE	LANGUAGE_UM
+
 LANGUAGE_UM		Perl
 LANGUAGE_UM		C
 LANGUAGE_UM		B
@@ -1574,7 +1666,7 @@ LANGUAGE		LANGUAGE_MOD LANGUAGE_UM
 
 EVAL_ITEMS_UM_P		EXPANSION_ITEMs
 EVAL_ITEMS_UM_P		SCI_THING_P
-EVAL_ITEMS_UM_P		OLD_MACHINEs
+EVAL_ITEMS_UM_P		DOMAIN_MACHINEs
 EVAL_ITEMS_P		EVAL_ITEMS_UM_P
 EVAL_ITEMS_P		SCI_MATH_ADJ EVAL_ITEMS_UM_P
 
@@ -1617,11 +1709,16 @@ EVAL_SEC_SOFTWARE_INTRO	SYSNAME runs on HACKED standard software
 EVAL_SEC_SOFTWARE_INTRO	We ran SCI_OUR_SYSTEM on commodity operating systems, such as OSFULL and OSFULL
 EVAL_SEC_SOFTWARE_INTRO	Building a sufficient software environment took time, but was well worth it in the end
 EVAL_SEC_SOFTWARE_INTRO	When SCI_SOURCE HACKED OSFULL's SOFTWARE_PROP in SCI_YEAR, he could not have anticipated the impact; our work here FOLLOWS_SUIT
+EVAL_SEC_SOFTWARE_INTRO	SYSNAME requires a SCI_MATH_ADV SCI_VERBED version of OSFULL to function properly
+EVAL_SEC_SOFTWARE_INTRO	our SCI_THING_S pipeline was deployed on OSFULL, with SCI_THING_MOD handled by a custom OSFULL module
+EVAL_SEC_SOFTWARE_INTRO	we developed SCI_OUR_SYSTEM using OSFULL as the primary SCI_THING_S environment
 
 
 FOLLOWS_SUIT 	attempts to follow on
 FOLLOWS_SUIT 	follows suit
 FOLLOWS_SUIT 	inherits from this previous work
+
+DOMAIN_OS	OSNAME
 
 OSNAME		GNU/Debian Linux 
 OSNAME		FreeBSD
@@ -1658,6 +1755,8 @@ WINVERS		1969
 
 OSFULL		OSNAME Version VERSION
 OSFULL		OSNAME
+OSFULL		DOMAIN_OS Version VERSION
+OSFULL		DOMAIN_OS
 
 ABCD		a
 ABCD		b
@@ -1714,6 +1813,12 @@ EVAL_ANALYZE_ONE of course, all sensitive data was anonymized during our EMULATI
 EVAL_ANALYZE_ONE note that SCI_THING_P have SMOOTHER HARDWARE_PROP_OR_MEASUREMENT curves than do HACKED SCI_THING_P
 EVAL_ANALYZE_ONE the key to EXP_FIG is closing the feedback loop; EXP_FIG shows how SCI_OUR_SYSTEM's HARDWARE_PROP_OR_MEASUREMENT does not converge otherwise
 EVAL_ANALYZE_ONE the data in EXP_FIG, in particular, proves that four years of hard work were wasted on this project
+EVAL_ANALYZE_ONE	the data in EXP_FIG confirms our SCI_ADJ hypothesis about SCI_THING_MOD
+EVAL_ANALYZE_ONE	these findings are consistent with our theoretical model of SCI_THING_MOD
+EVAL_ANALYZE_ONE	the trend in EXP_FIG suggests that SCI_THING_MOD behaves as expected under SCI_BUZZWORD_ADJ SCI_BUZZWORD_NOUN
+EVAL_ANALYZE_ONE	surprisingly, the results suggest that SCI_THING_MOD has a greater effect than initially predicted
+EVAL_ANALYZE_ONE	we observe a clear correlation between SCI_THING_MOD and EVAL_MEASUREMENT
+EVAL_ANALYZE_ONE	the results from EXP_FIG are largely consistent with findings from EVAL_WHOSE prior work
 
 ACCURATE	accurate
 ACCURATE	wildly inaccurate
@@ -1798,15 +1903,15 @@ IDEAL	ideal
 IDEAL	approximate
 IDEAL	contrived
 
-EVAL_EXP	we ran SCI_THING_P on DIGITDIGIT nodes spread throughout the NETWORK_TYPE network, and compared them against SCI_THING_P running locally
+EVAL_EXP	we ran SCI_THING_P on DIGITDIGIT nodes spread throughout the DOMAIN_NETWORK network, and compared them against SCI_THING_P running locally
 
-EVAL_EXP	we deployed DIGITDIGIT OLD_MACHINEs across the NETWORK_TYPE network, and tested our SCI_THING_P accordingly
+EVAL_EXP	we deployed DIGITDIGIT DOMAIN_MACHINEs across the DOMAIN_NETWORK network, and tested our SCI_THING_P accordingly
 
 EVAL_EXP	we asked (and answered) what would happen if SCI_MATH_ADV SCI_MATH_ADJ SCI_THING_P were used instead of SCI_THING_P
 
-EVAL_EXP	we measured HARDWARE_PROP as a function of HARDWARE_PROP on a OLD_MACHINE
+EVAL_EXP	we measured HARDWARE_PROP as a function of HARDWARE_PROP on a DOMAIN_MACHINE
 
-EVAL_EXP 	we compared EVAL_MEASUREMENT on the OSNAME, OSNAME and OSNAME operating systems
+EVAL_EXP 	we compared EVAL_MEASUREMENT on the DOMAIN_OS, DOMAIN_OS and DOMAIN_OS operating systems
 
 EVAL_EXP	we measured MEASURABLE_SYSTEM and MEASURABLE_SYSTEM PERFORMANCE on our EXP_WHERE
 
@@ -3468,7 +3573,7 @@ GRAPH_LOG+14
 GRAPH_ERRORS errorbars
 GRAPH_ERRORS+4
 
-GRAPH_CURVE_LABEL title 'NETWORK_TYPE'
+GRAPH_CURVE_LABEL title 'DOMAIN_NETWORK'
 GRAPH_CURVE_LABEL title 'SCI_THING'
 GRAPH_CURVE_LABEL title 'EVAL_SYSTEM'
 

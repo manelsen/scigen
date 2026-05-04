@@ -101,3 +101,53 @@ SCI_BUZZWORD_NOUN	transcription
 SCI_BUZZWORD_NOUN	translation
 SCI_BUZZWORD_NOUN	assembly
 SCI_BUZZWORD_NOUN	profiling
+
+# Domain-specific equipment/environments (replaces OLD_MACHINE, OSNAME, etc.)
+DOMAIN_MACHINE	microscope slide
+DOMAIN_MACHINE	Petri dish
+DOMAIN_MACHINE	centrifuge
+DOMAIN_MACHINE	PCR thermocycler
+DOMAIN_MACHINE	gel electrophoresis rig
+DOMAIN_MACHINE	flow cytometer
+DOMAIN_MACHINE	microplate reader
+DOMAIN_MACHINE	incubator
+DOMAIN_MACHINE	spectrophotometer
+DOMAIN_MACHINE	confocal microscope
+DOMAIN_MACHINE	NMR spectrometer
+
+DOMAIN_OS	LabOS
+DOMAIN_OS	BioTools
+DOMAIN_OS	GeneSeq Suite
+DOMAIN_OS	RStudio
+DOMAIN_OS	MATLAB
+DOMAIN_OS	Python SciPy Stack
+DOMAIN_OS	Bioconductor
+DOMAIN_OS	Galaxy Platform
+DOMAIN_OS	KNIME
+DOMAIN_OS	CWL Runner
+
+DOMAIN_LANGUAGE	R
+DOMAIN_LANGUAGE	Python
+DOMAIN_LANGUAGE	MATLAB
+DOMAIN_LANGUAGE	Julia
+DOMAIN_LANGUAGE	Bash
+DOMAIN_LANGUAGE	SQL
+DOMAIN_LANGUAGE	WDL
+DOMAIN_LANGUAGE	CWL
+
+DOMAIN_NETWORK	laboratory LAN
+DOMAIN_NETWORK	sequencing cluster
+DOMAIN_NETWORK	high-throughput pipeline
+DOMAIN_NETWORK	HPC cluster
+DOMAIN_NETWORK	cloud compute grid
+DOMAIN_NETWORK	data warehouse
+
+DOMAIN_TOOL_VERB	calibrating
+DOMAIN_TOOL_VERB	optimizing
+DOMAIN_TOOL_VERB	refining
+DOMAIN_TOOL_VERB	configuring
+DOMAIN_TOOL_VERB	tuning
+DOMAIN_TOOL_VERB	integrating
+DOMAIN_TOOL_VERB	standardizing
+DOMAIN_TOOL_VERB	preprocessing
+DOMAIN_TOOL_VERB	normalizing

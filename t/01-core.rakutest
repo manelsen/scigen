@@ -165,4 +165,52 @@ ok @first-outputs.unique.elems == 20, 'seeds 1..20 each produce a unique first o
 # Verify the distribution is not concentrated at the low end
 my @low-count = @first-outputs.grep({ $_ < 0.1 });
 ok @low-count.elems <= 5, 'no more than 5 of 20 first outputs fall in [0, 0.1)';
+
+# === freeze-paper-terms tests ===
+
+subtest 'freeze-paper-terms freezes key rules' => {
+    my $book = load-rules('scirules.in');
+    freeze-paper-terms($book, seed => 42);
+    is +$book.alternatives('SCI_FIELD'), 1, 'SCI_FIELD frozen to single alternative';
+    is +$book.alternatives('SCI_THING_S'), 1, 'SCI_THING_S frozen to single alternative';
+    is +$book.alternatives('SCI_THING_P'), 1, 'SCI_THING_P frozen to single alternative';
+    is +$book.alternatives('SCI_BUZZWORD_NOUN'), 1, 'SCI_BUZZWORD_NOUN frozen to single alternative';
+    is +$book.alternatives('SCI_BUZZWORD_ADJ'), 1, 'SCI_BUZZWORD_ADJ frozen to single alternative';
+    ok $book.alternatives('SCI_THESIS_TOPIC').elems > 0, 'SCI_THESIS_TOPIC created';
+}
+
+subtest 'freeze-paper-terms produces consistent field across seeds' => {
+    my %fields;
+    for 1..10 -> $seed {
+        my $book = load-rules('scirules.in');
+        freeze-paper-terms($book, seed => $seed);
+        my $field = $book.alternatives('SCI_FIELD')[0].Str;
+        %fields{$field}++;
+    }
+    ok +%fields >= 3, "freeze-paper-terms varies SCI_FIELD across seeds ({+%fields} distinct)";
+}
+
+subtest 'domain wrapper rules exist as aliases' => {
+    my $book = load-rules('scirules.in');
+    ok $book.alternatives('DOMAIN_MACHINE').elems > 0, 'DOMAIN_MACHINE rule exists';
+    ok $book.alternatives('DOMAIN_OS').elems > 0, 'DOMAIN_OS rule exists';
+    ok $book.alternatives('DOMAIN_LANGUAGE').elems > 0, 'DOMAIN_LANGUAGE rule exists';
+    ok $book.alternatives('DOMAIN_NETWORK').elems > 0, 'DOMAIN_NETWORK rule exists';
+    ok $book.alternatives('DOMAIN_TOOL_VERB').elems > 0, 'DOMAIN_TOOL_VERB rule exists';
+}
+
+subtest 'domain profile overrides wrapper rules' => {
+    my $book = load-rules('scirules.in');
+    apply-domain($book, 'biology');
+    my @machines = $book.alternatives('DOMAIN_MACHINE').list.map(*.Str);
+    ok @machines.elems > 5, 'DOMAIN_MACHINE has biology entries';
+    ok @machines.grep(/'microscope'|'centrifuge'|'PCR'/).elems > 0,
+       'DOMAIN_MACHINE includes biology-specific equipment';
+
+    my @oses = $book.alternatives('DOMAIN_OS').list.map(*.Str);
+    ok @oses.elems > 5, 'DOMAIN_OS has biology entries';
+    ok @oses.grep(/'LabOS'|'BioTools'|'RStudio'/).elems > 0,
+       'DOMAIN_OS includes biology-specific software';
+}
+
 done-testing;

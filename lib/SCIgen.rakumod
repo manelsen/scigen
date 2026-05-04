@@ -281,6 +281,11 @@ sub domain-ai-prompt(Str:D $domain --> Str) is export {
     - SCI_THING_P: 20 entries — plural technical concepts/objects (e.g., "enzymes", "proteins")
     - SCI_PEOPLE: 17 entries — types of researchers or professionals (e.g., "biologists", "geneticists")
     - SCI_BUZZWORD_NOUN: 20 entries — technical nouns for buzzword phrases (e.g., "sequencing", "expression")
+    - DOMAIN_MACHINE: 11 entries — equipment or instruments specific to the domain (e.g., "microscope", "thermocycler")
+    - DOMAIN_OS: 10 entries — software platforms or environments used in the domain (e.g., "RStudio", "LabOS")
+    - DOMAIN_LANGUAGE: 8 entries — programming languages or scripting tools used in the domain
+    - DOMAIN_NETWORK: 6 entries — network or computing infrastructure used in the domain (e.g., "HPC cluster")
+    - DOMAIN_TOOL_VERB: 9 entries — domain-specific verb forms for tool use (e.g., "calibrating", "optimizing")
 
     Requirements:
     - All entries must be realistic and specific to the {$domain} domain
@@ -356,6 +361,31 @@ sub apply-domain(RuleBook:D $book, Str:D $domain --> RuleBook) is export {
     }
     $book;
 }
+
+sub freeze-paper-terms(RuleBook:D $book, Int :$seed --> RuleBook) is export {
+    my $rng = DeterministicRandom.new(seed => $seed + 999_999);
+    # Pre-expand key terms once so all sections reference the same values.
+    # Use a seed offset so the frozen terms don't correlate with the
+    # system name generation (which uses the raw seed).
+    my $field    = expand($book, 'SCI_FIELD', $rng).trim;
+    my $thing-s  = expand($book, 'SCI_THING_S', $rng).trim;
+    my $thing-p  = expand($book, 'SCI_THING_P', $rng).trim;
+    my $buzz-noun = expand($book, 'SCI_BUZZWORD_NOUN', $rng).trim;
+    my $buzz-adj = expand($book, 'SCI_BUZZWORD_ADJ', $rng).trim;
+
+    $book.set-rule('SCI_FIELD', $field);
+    $book.set-rule('SCI_THING_S', $thing-s);
+    $book.set-rule('SCI_THING_P', $thing-p);
+    $book.set-rule('SCI_BUZZWORD_NOUN', $buzz-noun);
+    $book.set-rule('SCI_BUZZWORD_ADJ', $buzz-adj);
+
+    # Create synthetic rule for the thesis topic phrase
+    my $thesis = "$buzz-adj $buzz-noun for $thing-s in $field";
+    $book.set-rule('SCI_THESIS_TOPIC', $thesis);
+
+    $book;
+}
+
 
 sub parse-rule-file(IO::Path:D $path, RuleBook:D $book) is export {
     my $source = $path.absolute.IO;
@@ -576,6 +606,7 @@ sub write-paper(*%opts --> IO::Path) is export {
             apply-domain($book, $domain);
         }
     }
+    freeze-paper-terms($book, :$seed);
     $book.set-rule('SCI_TITLE', $title) if $title.defined;
     $book.set-rule('SCI_ABSTRACT', '\\section*{Abstract}' ~ "\n\n$abstract\n") if $abstract.defined;
 
