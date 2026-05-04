@@ -146,4 +146,23 @@ ok $payload.contains('"temperature": 0.5'), 'build-chat-payload includes tempera
 ok $payload.contains('"content": "sys"'), 'build-chat-payload includes system message';
 ok $payload.contains('"content": "usr"'), 'build-chat-payload includes user message';
 
+my $field-book = load-rules('scirules.in');
+my %seen-fields;
+for 1, 2, 3, 5, 7, 42, 100, 500, 1000, 9999, 10000, 50000 -> $seed {
+    my $field = generate($field-book, 'SCI_FIELD', :$seed, :!pretty);
+    %seen-fields{$field.trim}++;
+}
+ok %seen-fields.elems >= 4, 'small and large seeds select varied SCI_FIELD alternatives (>= 4 distinct)';
+
+
+# Verify that consecutive seeds produce different first outputs
+my @first-outputs = (1..20).map({
+    my $rng = DeterministicRandom.new(seed => $_);
+    $rng.next-num;
+});
+ok @first-outputs.unique.elems == 20, 'seeds 1..20 each produce a unique first output';
+
+# Verify the distribution is not concentrated at the low end
+my @low-count = @first-outputs.grep({ $_ < 0.1 });
+ok @low-count.elems <= 5, 'no more than 5 of 20 first outputs fall in [0, 0.1)';
 done-testing;

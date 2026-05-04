@@ -7,8 +7,21 @@ class DeterministicRandom is export {
     has Int $.state is rw;
 
     method new(Int :$seed = 1) {
-        my $state = $seed % 2_147_483_647;
-        $state += 2_147_483_646 if $state <= 0;
+        my $m = 2_147_483_647;
+        # Hash the seed through a multiplicative mixer (Knuth) then
+        # warm up with 8 rounds of the LCG itself.  This spreads small
+        # seeds uniformly across [1, $m) so the first next-num output
+        # is not proportional to the seed value.
+        my $state = $seed % $m;
+        $state += $m - 1 if $state <= 0;
+        # Multiplicative hash step
+        $state = ($state * 636_413_622_384_679_3005 + 1) % $m;
+        $state += $m - 1 if $state <= 0;
+        # 8 warm-up rounds through the LCG
+        for ^8 {
+            $state = ($state * 48_271) % $m;
+            $state += $m - 1 if $state <= 0;
+        }
         self.bless(:$state);
     }
 
