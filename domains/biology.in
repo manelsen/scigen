@@ -1,0 +1,103 @@
+# Biology domain profile for SCIgen
+# Usage: --domain biology
+#
+# Each rule in this file replaces ALL alternatives from the base grammar.
+# Rules not listed here keep their defaults from scirules.in.
+
+SCI_FIELD	genetics
+SCI_FIELD	molecular biology
+SCI_FIELD	ecology
+SCI_FIELD	microbiology
+SCI_FIELD	biochemistry
+SCI_FIELD	neuroscience
+SCI_FIELD	cell biology
+SCI_FIELD	evolutionary biology
+SCI_FIELD	immunology
+SCI_FIELD	physiology
+SCI_FIELD	taxonomy
+SCI_FIELD	marine biology
+SCI_FIELD	botany
+SCI_FIELD	zoology
+SCI_FIELD	paleontology
+SCI_FIELD	epidemiology
+
+SCI_THING_S	the genome
+SCI_THING_S	the proteome
+SCI_THING_S	the ribosome
+SCI_THING_S	protein folding
+SCI_THING_S	the cell membrane
+SCI_THING_S	DNA replication
+SCI_THING_S	gene expression
+SCI_THING_S	mitosis
+SCI_THING_S	meiosis
+SCI_THING_S	the mitochondrion
+SCI_THING_S	photosynthesis
+SCI_THING_S	the Krebs cycle
+SCI_THING_S	apoptosis
+SCI_THING_S	epigenetics
+SCI_THING_S	the Golgi apparatus
+SCI_THING_S	transcription
+SCI_THING_S	translation
+SCI_THING_S	plasmid transfer
+SCI_THING_S	the lipid bilayer
+SCI_THING_S	chemotaxis
+
+SCI_THING_P	enzymes
+SCI_THING_P	proteins
+SCI_THING_P	genomes
+SCI_THING_P	mutations
+SCI_THING_P	cell cultures
+SCI_THING_P	antibodies
+SCI_THING_P	nucleotides
+SCI_THING_P	peptide chains
+SCI_THING_P	organelles
+SCI_THING_P	ribosomes
+SCI_THING_P	transcripts
+SCI_THING_P	plasmids
+SCI_THING_P	pathogens
+SCI_THING_P	cytokines
+SCI_THING_P	receptors
+SCI_THING_P	metabolites
+SCI_THING_P	chromosomes
+SCI_THING_P	membranes
+SCI_THING_P	colonies
+SCI_THING_P	organisms
+
+SCI_PEOPLE	biologists
+SCI_PEOPLE	geneticists
+SCI_PEOPLE	microbiologists
+SCI_PEOPLE	bioinformaticians
+SCI_PEOPLE	ecologists
+SCI_PEOPLE	immunologists
+SCI_PEOPLE	neuroscientists
+SCI_PEOPLE	paleontologists
+SCI_PEOPLE	zoologists
+SCI_PEOPLE	botanists
+SCI_PEOPLE	epidemiologists
+SCI_PEOPLE	molecular biologists
+SCI_PEOPLE	researchers
+SCI_PEOPLE	scholars
+SCI_PEOPLE	experts
+SCI_PEOPLE	leading analysts
+SCI_PEOPLE	statisticians
+
+SCI_BUZZWORD_NOUN	sequencing
+SCI_BUZZWORD_NOUN	expression
+SCI_BUZZWORD_NOUN	replication
+SCI_BUZZWORD_NOUN	regulation
+SCI_BUZZWORD_NOUN	pathways
+SCI_BUZZWORD_NOUN	signaling
+SCI_BUZZWORD_NOUN	differentiation
+SCI_BUZZWORD_NOUN	selection
+SCI_BUZZWORD_NOUN	adaptation
+SCI_BUZZWORD_NOUN	synthesis
+SCI_BUZZWORD_NOUN	catalysis
+SCI_BUZZWORD_NOUN	folding
+SCI_BUZZWORD_NOUN	binding
+SCI_BUZZWORD_NOUN	inhibition
+SCI_BUZZWORD_NOUN	activation
+SCI_BUZZWORD_NOUN	methylation
+SCI_BUZZWORD_NOUN	transcription
+SCI_BUZZWORD_NOUN	translation
+SCI_BUZZWORD_NOUN	assembly
+SCI_BUZZWORD_NOUN	profiling

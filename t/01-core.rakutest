@@ -1,0 +1,149 @@
+use lib 'lib';
+use Test;
+use SCIgen;
+
+my $book = RuleBook.new;
+$book.add-rule('START', 'hello THING');
+$book.add-rule('THING', 'world');
+is generate($book, 'START', :seed(1), :!pretty), 'hello world', 'expands nested tokens';
+
+my $weighted = RuleBook.new;
+$weighted.add-rule('START', 'A', 2);
+$weighted.add-rule('START', 'B', 1);
+is $weighted.alternatives('START').elems, 3, 'stores weighted alternatives';
+
+my $unique = RuleBook.new;
+$unique.add-rule('START', 'X');
+$unique.mark-unique('START');
+is generate($unique, 'START', :seed(1), :!pretty), 'X', 'generates unique value once';
+
+my $counter = RuleBook.new;
+$counter.add-rule('START', 'fileN+.eps then fileN#.eps');
+$counter.add-rule('N\+', '');
+$counter.add-rule('N\#', '');
+is generate($counter, 'START', :seed(1), :!pretty), 'file0.eps then file0.eps', 'supports counters and references';
+
+my $parsed = load-rules('system_names.in');
+ok $parsed.alternatives('SYSTEM_NAME').elems > 0, 'loads repository grammar';
+ok generate($parsed, 'SYSTEM_NAME', :seed(42), :!pretty).chars > 0, 'generates from repository grammar';
+
+ok generate-system-name(:seed(9), :!effects).chars > 0, 'generates system names through app API';
+
+my $tmp = $*TMPDIR.add("scigen-raku-test-$*PID");
+$tmp.mkdir;
+
+my $paper-dir = $tmp.add('paper');
+write-paper(
+    :seed(5),
+    :authors(['Ada Lovelace']),
+    :savedir($paper-dir.Str),
+    :start('SCI_ABSTRACT'),
+    :abstract('A custom abstract about critical pedagogy.'),
+);
+ok $paper-dir.add('scigen.tex').e, 'writes generated paper tex';
+ok $paper-dir.add('scigenbibfile.bib').e, 'writes generated bibliography file';
+ok $paper-dir.add('scigenbibfile.bib').defined, 'writes bibliography file without rendering';
+ok $paper-dir.add('scigen.tex').slurp.contains('A custom abstract about critical pedagogy.'), 'supports custom abstract override';
+
+my $graph = $tmp.add('graph.eps');
+write-graph(:seed(3), :file($graph.Str));
+ok $tmp.add('graph.eps.gnuplot').e, 'writes gnuplot source without rendering';
+
+my $diagram = $tmp.add('diagram.eps');
+write-diagram(:seed(4), :file($diagram.Str), :sysname('TestSys'));
+ok $tmp.add('diagram.eps.dot').e, 'writes graphviz source without rendering';
+
+my $talkfig = $tmp.add('talkfig.eps');
+write-talk-figure(:seed(6), :file($talkfig.Str), :type('anything'));
+ok $tmp.add('talkfig.eps.svg').e, 'writes talk figure svg without rendering';
+
+ok tool-available('/bin/sh'), 'detects executable absolute paths';
+dies-ok { require-tools('test render', ['definitely-not-a-scigen-tool']) }, 'reports missing render tools before running';
+
+my $llm = openai-compatible-config(
+    base-url => 'https://example.invalid/v1',
+    api-key => 'test-key',
+    model => 'test-model',
+);
+ok $llm.enabled, 'enables OpenAI-compatible config with key and model';
+is $llm.chat-url, 'https://example.invalid/v1/chat/completions', 'builds chat completions endpoint';
+my %request = llm-analysis-request('abstract text', $llm);
+is %request<model>, 'test-model', 'builds OpenAI-compatible analysis request';
+is %request<messages>.elems, 2, 'analysis request has system and user messages';
+
+my $missing-llm = openai-compatible-config(base-url => 'https://example.invalid/v1', api-key => '', model => '');
+dies-ok { require-llm-config($missing-llm) }, 'requires explicit LLM credentials and model';
+
+my $env-file = $tmp.add('test.env');
+$env-file.spurt(q:to/ENV/);
+# comment
+SCIGEN_LLM_BASE_URL="https://dotenv.example/v1"
+export SCIGEN_LLM_API_KEY='dotenv-key'
+SCIGEN_LLM_MODEL=dotenv-model
+BAD-NAME=ignored
+ENV
+my %dotenv = read-dotenv($env-file.Str);
+is %dotenv<SCIGEN_LLM_BASE_URL>, 'https://dotenv.example/v1', 'reads quoted dotenv values';
+is %dotenv<SCIGEN_LLM_API_KEY>, 'dotenv-key', 'reads exported dotenv values';
+is %dotenv<SCIGEN_LLM_MODEL>, 'dotenv-model', 'reads unquoted dotenv values';
+ok !(%dotenv<BAD-NAME>:exists), 'ignores invalid dotenv keys';
+is getenv-with-dotenv('SCIGEN_LLM_MODEL', %dotenv, ''), 'dotenv-model', 'reads config from dotenv fallback';
+
+
+# --domain profile overrides
+my $domain-book = load-rules('scirules.in');
+apply-domain($domain-book, 'biology');
+my @bio-fields = $domain-book.alternatives('SCI_FIELD').list;
+ok @bio-fields.elems > 0, 'domain profile loads biology SCI_FIELD alternatives';
+ok @bio-fields.grep(* eq 'genetics'), 'biology profile includes genetics';
+ok @bio-fields.grep(* eq 'epidemiology'), 'biology profile includes epidemiology';
+# verify no CS fields leaked through
+nok @bio-fields.grep(* eq 'operating systems'), 'biology profile replaces CS SCI_FIELD entries';
+
+my $bio-thing = generate($domain-book, 'SCI_THING', :seed(1), :!pretty);
+ok $bio-thing.chars > 0, 'generates SCI_THING from biology domain';
+
+# --define overrides still work alongside --domain
+my $override-book = load-rules('scirules.in', :overrides({ 'SCI_FIELD' => ['custom-field'] }));
+apply-domain($override-book, 'biology');
+$override-book.set-rule('SCI_FIELD', 'overridden-field');
+is generate($override-book, 'SCI_FIELD', :seed(1), :!pretty), 'overridden-field', '--define overrides take precedence after domain';
+
+# domain not found
+dies-ok { apply-domain(RuleBook.new, 'nonexistent-domain-xyz') }, 'dies on missing domain profile';
+
+# resolve-domain-path tests
+is resolve-domain-path('biology').basename, 'biology.in', 'resolves shorthand domain name';
+ok resolve-domain-path('domains/physics.in').Str.contains('domains'), 'resolves explicit path';
+
+# --ai domain generation helpers
+my $ai-prompt = domain-ai-prompt('marine biology');
+ok $ai-prompt.contains('marine biology'), 'domain-ai-prompt includes domain name';
+ok $ai-prompt.contains('SCI_FIELD'), 'domain-ai-prompt includes SCI_FIELD rule';
+ok $ai-prompt.contains('SCI_THING_S'), 'domain-ai-prompt includes SCI_THING_S rule';
+ok $ai-prompt.contains('SCI_BUZZWORD_NOUN'), 'domain-ai-prompt includes SCI_BUZZWORD_NOUN rule';
+
+my $ai-response = "SCI_FIELD\tphysical oceanography\nSCI_FIELD\tmarine ecology\nSCI_THING_S\tthe thermocline\nSCI_THING_S\tcoral bleaching\nSCI_THING_P\tcurrents\nSCI_PEOPLE\toceanographers\n";
+my %ai-rules = parse-domain-ai-response($ai-response);
+is %ai-rules<SCI_FIELD>.elems, 2, 'parse-domain-ai-response counts SCI_FIELD entries';
+ok %ai-rules<SCI_FIELD>.grep(* eq 'physical oceanography'), 'parse-domain-ai-response preserves SCI_FIELD values';
+is %ai-rules<SCI_THING_S>.elems, 2, 'parse-domain-ai-response counts SCI_THING_S entries';
+is %ai-rules<SCI_THING_P>.elems, 1, 'parse-domain-ai-response counts SCI_THING_P entries';
+is %ai-rules<SCI_PEOPLE>.elems, 1, 'parse-domain-ai-response counts SCI_PEOPLE entries';
+
+my %ai-empty = parse-domain-ai-response('');
+ok %ai-empty.elems == 0, 'parse-domain-ai-response returns empty hash for empty input';
+
+my %ai-noise = parse-domain-ai-response("# comment\nsome garbage\n\n");
+ok %ai-noise.elems == 0, 'parse-domain-ai-response ignores comments and malformed lines';
+
+# json-escape-str and build-chat-payload
+is json-escape-str('hello "world"'), 'hello \\"world\\"', 'json-escape-str escapes quotes';
+is json-escape-str("line1\nline2"), 'line1\\nline2', 'json-escape-str escapes newlines';
+my $payload = build-chat-payload('test-model', 'sys', 'usr', 0.5e0);
+ok $payload.contains('"model": "test-model"'), 'build-chat-payload includes model';
+ok $payload.contains('"temperature": 0.5'), 'build-chat-payload includes temperature';
+ok $payload.contains('"content": "sys"'), 'build-chat-payload includes system message';
+ok $payload.contains('"content": "usr"'), 'build-chat-payload includes user message';
+
+done-testing;

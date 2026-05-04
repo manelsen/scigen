@@ -1,0 +1,156 @@
+#!/usr/bin/env raku
+
+use lib $*PROGRAM.parent.parent.add('lib').Str;
+use SCIgen;
+
+sub usage() {
+    note q:to/USAGE/;
+    Usage:
+      bin/scigen-raku generate --file <rules.in> [--start <RULE>] [--seed <n>] [--pretty|--no-pretty] [--define KEY=VALUE] [--domain <name>] [--ai]
+      bin/scigen-raku name [--seed <n>] [--no-effects]
+      bin/scigen-raku paper [--author NAME]... [--seed <n>] [--savedir DIR] [--file OUT] [--tar OUT.tgz] [--talk] [--title TITLE] [--abstract TEXT] [--sysname NAME] [--define KEY=VALUE] [--domain <name>] [--ai] [--render] [--force]
+      bin/scigen-raku graph [--seed <n>] [--file OUT.eps] [--color] [--render]
+      bin/scigen-raku diagram --sysname NAME [--seed <n>] [--file OUT.eps] [--render]
+      bin/scigen-raku talk-figure [--type network|anything] [--sysname NAME] [--seed <n>] [--file OUT.eps] [--render]
+      bin/scigen-raku analyze --text TEXT [--env-file .env] [--llm-model MODEL] [--llm-base-url URL] [--llm-api-key KEY]
+      bin/scigen-raku daemon [--host 127.0.0.1] [--port 4724] [--seed <n>]
+    USAGE
+}
+
+sub take-value(@args, Str $name --> Str) {
+    die "$name requires a value" unless @args;
+    @args.shift;
+}
+
+sub parse-common(@args --> Hash) {
+    my %opt = seed => 1;
+    while @args {
+        my $arg = @args.shift;
+        given $arg {
+            when '--seed' { %opt<seed> = take-value(@args, $arg).Int }
+            when '--file' { %opt<file> = take-value(@args, $arg) }
+            when '--start' { %opt<start> = take-value(@args, $arg) }
+            when '--savedir' { %opt<savedir> = take-value(@args, $arg) }
+            when '--tar' { %opt<tar> = take-value(@args, $arg) }
+            when '--title' { %opt<title> = take-value(@args, $arg) }
+            when '--abstract' { %opt<abstract> = take-value(@args, $arg) }
+            when '--sysname' { %opt<sysname> = take-value(@args, $arg) }
+            when '--host' { %opt<host> = take-value(@args, $arg) }
+            when '--port' { %opt<port> = take-value(@args, $arg).Int }
+            when '--type' { %opt<type> = take-value(@args, $arg) }
+            when '--text' { %opt<text> = take-value(@args, $arg) }
+            when '--llm-base-url' { %opt<llm-base-url> = take-value(@args, $arg) }
+            when '--llm-api-key' { %opt<llm-api-key> = take-value(@args, $arg) }
+            when '--llm-model' { %opt<llm-model> = take-value(@args, $arg) }
+            when '--env-file' { %opt<env-file> = take-value(@args, $arg) }
+            when '--author' { %opt<authors>.push(take-value(@args, $arg)) }
+            when '--define' {
+                my ($key, $value) = take-value(@args, $arg).split('=', 2);
+                %opt<define>{$key}.push($value // '') if $key;
+            }
+            when '--domain' { %opt<domain> = take-value(@args, $arg) }
+            when '--ai' { %opt<ai> = True }
+            when '--pretty' { %opt<pretty> = True }
+            when '--no-pretty' { %opt<pretty> = False }
+            when '--no-effects' { %opt<effects> = False }
+            when '--talk' { %opt<talk> = True }
+            when '--render' { %opt<render> = True }
+            when '--force' { %opt<force> = True }
+            when '--color' { %opt<color> = True }
+            default { die "Unknown option: $arg" }
+        }
+    }
+    %opt;
+}
+
+my @args = @*ARGS;
+my $command = @args.shift // 'help';
+
+if $command eq 'help' || $command eq '--help' || $command eq '-h' {
+    usage;
+    exit 0;
+}
+
+my %opt = parse-common(@args);
+
+
+sub build-llm-config(%opt --> LLMConfig) {
+    my %dotenv = read-dotenv(%opt<env-file> // '.env');
+    openai-compatible-config(
+        base-url => %opt<llm-base-url> // getenv-with-dotenv('SCIGEN_LLM_BASE_URL', %dotenv, DEFAULT-OPENAI-COMPAT-BASE-URL),
+        api-key => %opt<llm-api-key> // getenv-with-dotenv('SCIGEN_LLM_API_KEY', %dotenv, getenv-with-dotenv('OPENAI_API_KEY', %dotenv, '')),
+        model => %opt<llm-model> // getenv-with-dotenv('SCIGEN_LLM_MODEL', %dotenv, ''),
+    );
+}
+given $command {
+    when 'generate' {
+        die '--file is required' unless %opt<file>:exists;
+        die '--ai requires --domain <name>' if %opt<ai> && not %opt<domain>:exists;
+        my $book = load-rules(%opt<file>, :overrides(%opt<define> // {}));
+        if %opt<domain>:exists {
+            if %opt<ai> {
+                my $config = build-llm-config(%opt);
+                apply-domain-ai($book, %opt<domain>, $config);
+            } else {
+                apply-domain($book, %opt<domain>);
+            }
+        }
+        say generate($book, %opt<start> // 'START', :seed(%opt<seed>), :pretty(%opt<pretty> // True));
+    }
+    when 'name' {
+        say generate-system-name(:seed(%opt<seed>), :effects(%opt<effects> // True));
+    }
+    when 'paper' {
+        die '--ai requires --domain <name>' if %opt<ai> && not %opt<domain>:exists;
+        my $llm-config = %opt<ai> ?? build-llm-config(%opt) !! Nil;
+        my $dir = write-paper(
+            :seed(%opt<seed>),
+            :talk(%opt<talk> // False),
+            :title(%opt<title>),
+            :abstract(%opt<abstract>),
+            :sysname(%opt<sysname>),
+            :authors(%opt<authors> // []),
+            :savedir(%opt<savedir> // ''),
+            :file(%opt<file> // ''),
+            :tar(%opt<tar> // ''),
+            :render(%opt<render> // False),
+            :force(%opt<force> // False),
+            :defines(%opt<define>),
+            :domain(%opt<domain>),
+            :ai(%opt<ai> // False),
+            :llm-config($llm-config),
+        );
+        say $dir.Str;
+    }
+    when 'graph' {
+        say write-graph(:seed(%opt<seed>), :file(%opt<file> // ''), :color(%opt<color> // False), :render(%opt<render> // False)).Str;
+    }
+    when 'diagram' {
+        die '--sysname is required' unless %opt<sysname>:exists;
+        say write-diagram(:sysname(%opt<sysname>), :seed(%opt<seed>), :file(%opt<file> // ''), :render(%opt<render> // False)).Str;
+    }
+    when 'talk-figure' {
+        say write-talk-figure(:type(%opt<type> // 'network'), :sysname(%opt<sysname> // ''), :seed(%opt<seed>), :file(%opt<file> // ''), :render(%opt<render> // False)).Str;
+    }
+    when 'analyze' {
+        die '--text is required' unless %opt<text>:exists;
+        my %dotenv = read-dotenv(%opt<env-file> // '.env');
+        my $config = openai-compatible-config(
+            base-url => %opt<llm-base-url> // getenv-with-dotenv('SCIGEN_LLM_BASE_URL', %dotenv, DEFAULT-OPENAI-COMPAT-BASE-URL),
+            api-key => %opt<llm-api-key> // getenv-with-dotenv('SCIGEN_LLM_API_KEY', %dotenv, getenv-with-dotenv('OPENAI_API_KEY', %dotenv, '')),
+            model => %opt<llm-model> // getenv-with-dotenv('SCIGEN_LLM_MODEL', %dotenv, ''),
+        );
+        my %request = llm-analysis-request(%opt<text>, $config);
+        say "endpoint=" ~ $config.chat-url;
+        say "model=" ~ %request<model>;
+        say "messages=" ~ %request<messages>.elems;
+    }
+    when 'daemon' {
+        serve-names(:host(%opt<host> // '127.0.0.1'), :port(%opt<port> // DEFAULT-PORT), :seed(%opt<seed>));
+    }
+    default {
+        note "Unknown command: $command";
+        usage;
+        exit 2;
+    }
+}

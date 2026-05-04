@@ -1,0 +1,11 @@
+{
+  "perl": "6.d",
+  "name": "SCIgen",
+  "version": "0.1.0",
+  "description": "Raku rewrite of the SCIgen grammar expander",
+  "authors": ["SCIgen contributors"],
+  "license": "GPL-2.0-or-later",
+  "provides": {
+    "SCIgen": "lib/SCIgen.rakumod"
+  }
+}
