@@ -151,3 +151,49 @@ DOMAIN_TOOL_VERB	integrating
 DOMAIN_TOOL_VERB	standardizing
 DOMAIN_TOOL_VERB	preprocessing
 DOMAIN_TOOL_VERB	normalizing
+# Domain-specific implementation components (replaces IMPL_COMPONENT)
+DOMAIN_IMPL_COMPONENT	specimen repository
+DOMAIN_IMPL_COMPONENT	assay pipeline
+DOMAIN_IMPL_COMPONENT	data acquisition module
+DOMAIN_IMPL_COMPONENT	sequence alignment engine
+DOMAIN_IMPL_COMPONENT	sample tracking database
+DOMAIN_IMPL_COMPONENT	image analysis workflow
+DOMAIN_IMPL_COMPONENT	quality control framework
+DOMAIN_IMPL_COMPONENT	annotation service
+DOMAIN_IMPL_COMPONENT	collection of R scripts
+DOMAIN_IMPL_COMPONENT	codebase of NONZDIGIT DOMAIN_LANGUAGE files
+
+# Domain-specific run-time environments
+DOMAIN_IMPL_RUN_TYPE	on the same bench
+DOMAIN_IMPL_RUN_TYPE	in the same assay plate
+DOMAIN_IMPL_RUN_TYPE	under the same protocol
+
+# Domain-specific storage media (replaces STORAGE_TYPE)
+DOMAIN_STORAGE_TYPE	sample freezer
+DOMAIN_STORAGE_TYPE	cryogenic tank
+DOMAIN_STORAGE_TYPE	dry shipper
+DOMAIN_STORAGE_TYPE	-80 freezer
+DOMAIN_STORAGE_TYPE	cold room rack
+DOMAIN_STORAGE_TYPE	automated biobank
+
+# Domain-specific memory/buffer types (replaces MEMORY_TYPE)
+DOMAIN_MEMORY_TYPE	sample buffer
+DOMAIN_MEMORY_TYPE	reagent stock
+DOMAIN_MEMORY_TYPE	culture media
+DOMAIN_MEMORY_TYPE	working solution
+
+# Domain-specific processors/analyzers (replaces PROCESSOR_TYPE)
+DOMAIN_PROCESSOR_TYPE	sequencing core
+DOMAIN_PROCESSOR_TYPE	analysis pipeline
+DOMAIN_PROCESSOR_TYPE	mass spectrometer
+DOMAIN_PROCESSOR_TYPE	flow cytometer unit
+DOMAIN_PROCESSOR_TYPE	NMR probe
+DOMAIN_PROCESSOR_TYPE	microscopy station
+DOMAIN_PROCESSOR_TYPE	compute node
+
+# Domain-specific software properties (replaces SOFTWARE_PROP_UNMOD)
+DOMAIN_SW_PROP	throughput
+DOMAIN_SW_PROP	sensitivity
+DOMAIN_SW_PROP	specificity
+DOMAIN_SW_PROP	reproducibility
+DOMAIN_SW_PROP	pipeline architecture

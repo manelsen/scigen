@@ -213,4 +213,49 @@ subtest 'domain profile overrides wrapper rules' => {
        'DOMAIN_OS includes biology-specific software';
 }
 
+subtest 'new domain wrapper rules exist as aliases' => {
+    my $book = load-rules('scirules.in');
+    ok $book.alternatives('DOMAIN_IMPL_COMPONENT').elems > 0, 'DOMAIN_IMPL_COMPONENT rule exists';
+    ok $book.alternatives('DOMAIN_IMPL_RUN_TYPE').elems > 0, 'DOMAIN_IMPL_RUN_TYPE rule exists';
+    ok $book.alternatives('DOMAIN_STORAGE_TYPE').elems > 0, 'DOMAIN_STORAGE_TYPE rule exists';
+    ok $book.alternatives('DOMAIN_MEMORY_TYPE').elems > 0, 'DOMAIN_MEMORY_TYPE rule exists';
+    ok $book.alternatives('DOMAIN_PROCESSOR_TYPE').elems > 0, 'DOMAIN_PROCESSOR_TYPE rule exists';
+    ok $book.alternatives('DOMAIN_SW_PROP').elems > 0, 'DOMAIN_SW_PROP rule exists';
+}
+
+subtest 'biology profile overrides new wrapper rules' => {
+    my $book = load-rules('scirules.in');
+    apply-domain($book, 'biology');
+
+    my @impl = $book.alternatives('DOMAIN_IMPL_COMPONENT').list.map(*.Str);
+    ok @impl.elems > 5, 'DOMAIN_IMPL_COMPONENT has biology entries';
+    ok @impl.grep(/'pipeline'|'repository'|'workflow'/).elems > 0,
+       'DOMAIN_IMPL_COMPONENT includes biology-specific components';
+
+    my @storage = $book.alternatives('DOMAIN_STORAGE_TYPE').list.map(*.Str);
+    ok @storage.elems > 3, 'DOMAIN_STORAGE_TYPE has biology entries';
+    ok @storage.grep(/'freezer'|'cryogenic'|'biobank'/).elems > 0,
+       'DOMAIN_STORAGE_TYPE includes biology-specific storage';
+
+    my @proc = $book.alternatives('DOMAIN_PROCESSOR_TYPE').list.map(*.Str);
+    ok @proc.elems > 3, 'DOMAIN_PROCESSOR_TYPE has biology entries';
+    ok @proc.grep(/'sequencing'|'spectrometer'|'cytometer'/).elems > 0,
+       'DOMAIN_PROCESSOR_TYPE includes biology-specific analyzers';
+
+    my @sw = $book.alternatives('DOMAIN_SW_PROP').list.map(*.Str);
+    ok @sw.elems > 2, 'DOMAIN_SW_PROP has biology entries';
+    ok @sw.grep(/'throughput'|'sensitivity'|'specificity'/).elems > 0,
+       'DOMAIN_SW_PROP includes biology-specific properties';
+
+    my @run = $book.alternatives('DOMAIN_IMPL_RUN_TYPE').list.map(*.Str);
+    ok @run.elems > 0, 'DOMAIN_IMPL_RUN_TYPE has biology entries';
+    ok @run.grep(/'bench'|'plate'|'protocol'/).elems > 0,
+       'DOMAIN_IMPL_RUN_TYPE includes biology-specific co-location';
+
+    my @mem = $book.alternatives('DOMAIN_MEMORY_TYPE').list.map(*.Str);
+    ok @mem.elems > 0, 'DOMAIN_MEMORY_TYPE has biology entries';
+    ok @mem.grep(/'buffer'|'reagent'|'media'/).elems > 0,
+       'DOMAIN_MEMORY_TYPE includes biology-specific buffers';
+}
+
 done-testing;

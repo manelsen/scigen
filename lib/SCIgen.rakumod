@@ -286,6 +286,12 @@ sub domain-ai-prompt(Str:D $domain --> Str) is export {
     - DOMAIN_LANGUAGE: 8 entries — programming languages or scripting tools used in the domain
     - DOMAIN_NETWORK: 6 entries — network or computing infrastructure used in the domain (e.g., "HPC cluster")
     - DOMAIN_TOOL_VERB: 9 entries — domain-specific verb forms for tool use (e.g., "calibrating", "optimizing")
+    - DOMAIN_IMPL_COMPONENT: 10 entries — domain-specific software/system components (e.g., "assay pipeline", "specimen repository")
+    - DOMAIN_IMPL_RUN_TYPE: 3 entries — domain-specific co-location phrases (e.g., "on the same bench", "in the same assay plate")
+    - DOMAIN_STORAGE_TYPE: 6 entries — domain-specific storage media or facilities (e.g., "sample freezer", "cryogenic tank")
+    - DOMAIN_MEMORY_TYPE: 4 entries — domain-specific buffer or reagent quantities (e.g., "sample buffer", "reagent stock")
+    - DOMAIN_PROCESSOR_TYPE: 7 entries — domain-specific processing/analysis instruments (e.g., "sequencing core", "mass spectrometer")
+    - DOMAIN_SW_PROP: 5 entries — domain-specific software or pipeline properties (e.g., "throughput", "sensitivity")
 
     Requirements:
     - All entries must be realistic and specific to the {$domain} domain
