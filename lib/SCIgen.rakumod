@@ -709,16 +709,10 @@ sub write-bibliography(Str:D $tex, RuleBook:D $book, IO::Path:D $outdir, Determi
     my $path = $outdir.add('scigenbibfile.bib');
     my @labels = $tex.match(/'cite:' \d+/, :g).map(*.Str).unique;
     my $bib = '';
-    for @labels.kv -> $index, $label {
-        my $year = 1998 + ($index % 27);
-        my $title = "Generated reference for $label";
-        my $author = "SCIgen Reference Group";
-        $bib ~= '@article{' ~ $label ~ ",\n"
-            ~ '  author = {' ~ $author ~ "},\n"
-            ~ '  title = {' ~ $title ~ "},\n"
-            ~ '  journal = {Journal of Generated Studies},' ~ "\n"
-            ~ '  year = {' ~ $year ~ "}\n"
-            ~ "}\n\n";
+    for @labels -> $label {
+        $book.set-rule('CITE_LABEL_GIVEN', $label);
+        my $entry = expand($book, 'BIBTEX_ENTRY', $rng).trim;
+        $bib ~= $entry ~ "\n\n";
     }
     $path.spurt($bib);
     $path;
