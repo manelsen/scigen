@@ -434,9 +434,9 @@ SCI_BY_WHO_SOMETIMES CITATION
 SCI_BY_WHO_SOMETIMES+5 by SCI_BY_WHO
 SCI_BY_WHO_SOMETIMES+5 by SCI_BY_WHO CITATION
 SCI_BY_WHO GENERIC_LASTNAME
-SCI_BY_WHO SCI_SOURCE
+SCI_BY_WHO DOMAIN_RESEARCHER
 SCI_BY_WHO GENERIC_LASTNAME et al.
-SCI_BY_WHO SCI_SOURCE et al.
+SCI_BY_WHO DOMAIN_RESEARCHER et al.
 SCI_BY_WHO GENERIC_LASTNAME and GENERIC_LASTNAME
 
 SCI_OVERALL_THESIS_THING new SCI_BUZZWORD_ADJ SCI_BUZZWORD_NOUN
@@ -1626,14 +1626,14 @@ EVAL_SEC_SOFTWARE_MOD	we implemented our SCI_THING_S server in LANGUAGE, augment
 EVAL_SEC_SOFTWARE_MOD	we implemented our SCI_THING_S server in DOMAIN_LANGUAGE, augmented with SCI_MATH_ADV SCI_MATH_ADJ extensions
 
 LINKER_SUFFIX		linked against SCI_BUZZWORD_ADJ libraries for SCI_VERBING SCI_THING_MOD
-LINKER_SUFFIX		with the help of SCI_SOURCE's libraries for SCI_MATH_ADV SCI_VERBING EVAL_ITEMS
-LINKER_SUFFIX		built on SCI_SOURCE's toolkit for SCI_MATH_ADV SCI_VERBING EVAL_ITEMS
+LINKER_SUFFIX		with the help of DOMAIN_RESEARCHER's libraries for SCI_MATH_ADV SCI_VERBING EVAL_ITEMS
+LINKER_SUFFIX		built on DOMAIN_RESEARCHER's toolkit for SCI_MATH_ADV SCI_VERBING EVAL_ITEMS
 LINKER_SUFFIX		built on the SCI_COUNTRY toolkit for SCI_MATH_ADV SCI_VERBING EVAL_ITEMS
 
 EVAL_SEC_SOFTWARE_END	we made all of our software is available under a LICENSE_TYPE license.
 EVAL_SEC_SOFTWARE_END	we note that other researchers have tried and failed to enable this functionality.
 EVAL_SEC_SOFTWARE_END	this concludes our discussion of software modifications.
-EVAL_SEC_SOFTWARE_END	all of these techniques are of interesting historical significance; SCI_SOURCE and SCI_SOURCE investigated a SIMILAR SETUP in SCI_YEAR.
+EVAL_SEC_SOFTWARE_END	all of these techniques are of interesting historical significance; DOMAIN_RESEARCHER and DOMAIN_RESEARCHER investigated a SIMILAR SETUP in SCI_YEAR.
 
 SIMILAR	related
 SIMILAR	similar
@@ -1729,7 +1729,7 @@ EVAL_SEC_SOFTWARE_INTRO	SYSNAME does not run on a commodity DOMAIN_SW_PLATFORM b
 EVAL_SEC_SOFTWARE_INTRO	SYSNAME runs on HACKED standard software
 EVAL_SEC_SOFTWARE_INTRO	We ran SCI_OUR_SYSTEM on commodity DOMAIN_SW_PLATFORMs, such as OSFULL and OSFULL
 EVAL_SEC_SOFTWARE_INTRO	Building a sufficient software environment took time, but was well worth it in the end
-EVAL_SEC_SOFTWARE_INTRO	When SCI_SOURCE HACKED OSFULL's SOFTWARE_PROP in SCI_YEAR, he could not have anticipated the impact; our work here FOLLOWS_SUIT
+EVAL_SEC_SOFTWARE_INTRO	When DOMAIN_RESEARCHER HACKED OSFULL's SOFTWARE_PROP in SCI_YEAR, he could not have anticipated the impact; our work here FOLLOWS_SUIT
 EVAL_SEC_SOFTWARE_INTRO	SYSNAME requires a SCI_MATH_ADV SCI_VERBED version of OSFULL to function properly
 EVAL_SEC_SOFTWARE_INTRO	our SCI_THING_S pipeline was deployed on OSFULL, with SCI_THING_MOD handled by a custom OSFULL module
 EVAL_SEC_SOFTWARE_INTRO	we developed SCI_OUR_SYSTEM using OSFULL as the primary SCI_THING_S environment
@@ -1824,7 +1824,7 @@ EVAL_ANALYZE_ONE the many discontinuities in the graphs point to DIFFERENT EVAL_
 EVAL_ANALYZE_ONE bugs in our system caused the unstable behavior throughout the experiments
 EVAL_ANALYZE_ONE Gaussian electromagnetic disturbances in our EXP_WHERE caused unstable experimental results
 EVAL_ANALYZE_ONE operator error alone cannot account for these results
-EVAL_ANALYZE_ONE these EVAL_MEASUREMENT observations contrast to those seen in earlier work CITATION, such as SCI_SOURCE's seminal treatise on SCI_THING_P and observed HARDWARE_PROP_OR_MEASUREMENT
+EVAL_ANALYZE_ONE these EVAL_MEASUREMENT observations contrast to those seen in earlier work CITATION, such as DOMAIN_RESEARCHER's seminal treatise on SCI_THING_P and observed HARDWARE_PROP_OR_MEASUREMENT
 EVAL_ANALYZE_ONE note how EMULATING SCI_THING_P rather than EMULATING_THEM produce SMOOTHER, more reproducible results
 EVAL_ANALYZE_ONE the results come from only DIGIT trial runs, and were not reproducible
 EVAL_ANALYZE_ONE error bars have been elided, since most of our data points fell outside of DIGITDIGIT standard deviations from observed means
@@ -2972,9 +2972,9 @@ OMIT_WHY for anonymity
 OMIT_WHY for now
 OMIT_WHY until future work
 
-SCI_A_FACT	SCI_SOURCE's SCI_ACT in SCI_YEAR
+SCI_A_FACT	DOMAIN_RESEARCHER's SCI_ACT in SCI_YEAR
 SCI_A_FACT	the SCI_COMPLEXNOUN of SCI_FIELD
-SCI_A_FACT	the work of SCI_COUNTRY SCI_PERSON SCI_SOURCE
+SCI_A_FACT	the work of SCI_COUNTRY SCI_PERSON DOMAIN_RESEARCHER
 SCI_ACT+50	SCI_ACT_A SCI_THING
 SCI_ACT		SCI_ACT_A SCI_THING that SCI_EFFECT
 SCI_ACT_A	understanding of
@@ -3089,6 +3089,7 @@ SCI_PEOPLE	end-users
 SCI_PEOPLE      futurists
 SCI_PEOPLE      cyberneticists
 
+DOMAIN_RESEARCHER	SCI_SOURCE
 SCI_SOURCE	Rodney Brooks
 SCI_SOURCE	Alan Turing
 SCI_SOURCE	Albert Einstein
@@ -3729,8 +3730,8 @@ CITATION_MULTI \cite{CITATION_SINGLE, CITATION_SINGLE, CITATION_SINGLE, CITATION
 CITATIONLABEL\+
 CITATIONLABEL\#
 
-CITE_AUTHOR_LIST+10 SCI_SOURCE and CITE_AUTHOR_LIST
-CITE_AUTHOR_LIST+7 SCI_SOURCE
+CITE_AUTHOR_LIST+10 DOMAIN_RESEARCHER and CITE_AUTHOR_LIST
+CITE_AUTHOR_LIST+7 DOMAIN_RESEARCHER
 CITE_AUTHOR_LIST!
 
 CITE_CONF Proceedings of CITE_CONF_NAME

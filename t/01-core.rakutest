@@ -345,4 +345,29 @@ subtest 'Round 4 wrappers eliminate remaining CS terms' => {
     ok @cd.grep(/'power-law'|'Poisson'|'exponential'/).elems > 0,
        'DOMAIN_COMPLEXITY_DIST includes biology-specific distributions';
 }
+
+subtest 'DOMAIN_RESEARCHER wrapper rule exists as alias' => {
+    my $book = load-rules('scirules.in');
+    ok $book.alternatives('DOMAIN_RESEARCHER').elems > 0, 'DOMAIN_RESEARCHER rule exists';
+    # Default alias should point to SCI_SOURCE content
+    my @researchers = $book.alternatives('DOMAIN_RESEARCHER').list.map(*.Str);
+    ok @researchers.grep(/'SCI_SOURCE'/).elems > 0,
+       'DOMAIN_RESEARCHER aliases to SCI_SOURCE by default';
+}
+
+subtest 'biology profile overrides DOMAIN_RESEARCHER with biologists' => {
+    plan 4;
+    my $book = load-rules('scirules.in');
+    apply-domain($book, 'biology');
+
+    my @r = $book.alternatives('DOMAIN_RESEARCHER').list.map(*.Str);
+    ok @r.elems >= 40, 'DOMAIN_RESEARCHER has 40+ biology entries';
+    ok @r.grep(/'Darwin'|'Mendel'|'Pasteur'/).elems > 0,
+       'DOMAIN_RESEARCHER includes classic biologists';
+    ok @r.grep(/'Watson'|'Crick'|'McClintock'/).elems > 0,
+       'DOMAIN_RESEARCHER includes molecular biologists';
+    ok @r.grep(/'Goodall'|'Carson'|'Wilson'/).elems > 0,
+       'DOMAIN_RESEARCHER includes ecology/field biologists';
+}
+
 done-testing;
