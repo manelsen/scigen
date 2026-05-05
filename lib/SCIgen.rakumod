@@ -306,6 +306,7 @@ sub domain-ai-prompt(Str:D $domain --> Str) is export {
     - DOMAIN_COMPLEXITY_PROP: 4 entries — domain-specific theoretical complexity or decidability claims (e.g., "NP-hard", "undecidable")
     - DOMAIN_COMPLEXITY_DIST: 3 entries — domain-specific statistical distribution names (e.g., "a power-law distribution", "a Poisson distribution")
     - DOMAIN_RESEARCHER: 30 entries — domain-specific researcher names for citations (e.g., "Charles Darwin", "Gregor Mendel")
+    - SCI_BUZZWORD_ADJ: 20 entries — domain-appropriate technical adjectives replacing CS terms like "wireless" or "event-driven" (e.g., "reproducible", "phenotypic")
 
     Requirements:
     - All entries must be realistic and specific to the {$domain} domain
