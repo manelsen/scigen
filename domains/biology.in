@@ -391,3 +391,34 @@ SCI_BUZZWORD_ADJ	pathogenic
 SCI_BUZZWORD_ADJ	endemic
 SCI_BUZZWORD_ADJ	epidemiological
 SCI_BUZZWORD_ADJ	mutualistic
+# Domain-specific evaluation measurement terms (replaces CS-heavy EVAL_MEASUREMENT_UM)
+EVAL_MEASUREMENT_UM	sensitivity
+EVAL_MEASUREMENT_UM	specificity
+EVAL_MEASUREMENT_UM	accuracy
+EVAL_MEASUREMENT_UM	precision
+EVAL_MEASUREMENT_UM	recall
+EVAL_MEASUREMENT_UM	false positive rate
+EVAL_MEASUREMENT_UM	false negative rate
+EVAL_MEASUREMENT_UM	signal-to-noise ratio
+EVAL_MEASUREMENT_UM	sampling rate
+EVAL_MEASUREMENT_UM	response time
+EVAL_MEASUREMENT_UM	energy
+EVAL_MEASUREMENT_UM	power
+EVAL_MEASUREMENT_UM	complexity
+EVAL_MEASUREMENT_UM	distance
+EVAL_MEASUREMENT_UM	time since SCI_YEAR
+EVAL_MEASUREMENT_UM	work factor
+EVAL_MEASUREMENT_UM	popularity of SCI_THING_MOD
+EVAL_MEASUREMENT_UM	reproducibility
+EVAL_MEASUREMENT_UM	coefficient of variation
+EVAL_MEASUREMENT_UM	fold change
+
+# Domain-specific eval modification properties (replaces CS throughput/latency)
+EVAL_MOD_PROPERTY	sensitivity
+EVAL_MOD_PROPERTY	SCI_MATH_ADJ specificity
+EVAL_MOD_PROPERTY	accuracy
+
+# Domain-specific performance synonyms (replaces CS throughput/latency)
+PERFORMANCE	accuracy
+PERFORMANCE	performance
+PERFORMANCE	sensitivity

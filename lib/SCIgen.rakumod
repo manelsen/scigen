@@ -307,6 +307,9 @@ sub domain-ai-prompt(Str:D $domain --> Str) is export {
     - DOMAIN_COMPLEXITY_DIST: 3 entries — domain-specific statistical distribution names (e.g., "a power-law distribution", "a Poisson distribution")
     - DOMAIN_RESEARCHER: 30 entries — domain-specific researcher names for citations (e.g., "Charles Darwin", "Gregor Mendel")
     - SCI_BUZZWORD_ADJ: 20 entries — domain-appropriate technical adjectives replacing CS terms like "wireless" or "event-driven" (e.g., "reproducible", "phenotypic")
+    - EVAL_MEASUREMENT_UM: 20 entries — domain-specific measurement terms for evaluation (e.g., "sensitivity", "specificity", "accuracy")
+    - EVAL_MOD_PROPERTY: 3 entries — domain-specific measurable properties (e.g., "sensitivity", "accuracy")
+    - PERFORMANCE: 3 entries — domain-specific performance synonyms (e.g., "accuracy", "sensitivity")
 
     Requirements:
     - All entries must be realistic and specific to the {$domain} domain

@@ -370,4 +370,31 @@ subtest 'biology profile overrides DOMAIN_RESEARCHER with biologists' => {
        'DOMAIN_RESEARCHER includes ecology/field biologists';
 }
 
+subtest 'biology profile overrides evaluation metrics' => {
+    plan 6;
+    my $book = load-rules('scirules.in');
+    apply-domain($book, 'biology');
+
+    my @em = $book.alternatives('EVAL_MEASUREMENT_UM').list.map(*.Str);
+    ok @em.elems >= 15, 'EVAL_MEASUREMENT_UM has biology entries';
+    ok @em.grep(/'sensitivity'|'specificity'|'accuracy'/).elems > 0,
+       'EVAL_MEASUREMENT_UM includes biology-specific metrics';
+    nok @em.grep(/'clock speed'|'seek time'|'block size'/).elems,
+       'EVAL_MEASUREMENT_UM excludes CS-specific metrics';
+
+    my @mp = $book.alternatives('EVAL_MOD_PROPERTY').list.map(*.Str);
+    ok @mp.elems > 0, 'EVAL_MOD_PROPERTY has biology entries';
+    nok @mp.grep(/'throughput'|'latency'/).elems,
+       'EVAL_MOD_PROPERTY excludes CS throughput/latency';
+
+    my @pf = $book.alternatives('PERFORMANCE').list.map(*.Str);
+    ok @pf.elems > 0, 'PERFORMANCE has biology entries';
+}
+
+subtest 'SCI_TITLE_X includes thesis-topic alternatives' => {
+    my $book = load-rules('scirules.in');
+    my @titles = $book.alternatives('SCI_TITLE_X').list.map(*.Str);
+    ok @titles.grep(/'SCI_THESIS_TOPIC'/).elems >= 3,
+       'SCI_TITLE_X has at least 3 alternatives referencing SCI_THESIS_TOPIC';
+}
 done-testing;
