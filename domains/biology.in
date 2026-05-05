@@ -248,3 +248,33 @@ DOMAIN_SOFTWARE_SYSTEM	laboratory information system
 DOMAIN_SOFTWARE_SYSTEM	sequencing pipeline
 DOMAIN_SOFTWARE_SYSTEM	data management platform
 DOMAIN_SOFTWARE_SYSTEM	SCI_THING
+
+# Domain-specific software modules/extensions
+DOMAIN_SW_MODULE	analysis plugin
+DOMAIN_SW_MODULE	visualization module
+DOMAIN_SW_MODULE	annotation extension
+DOMAIN_SW_MODULE	quality control plugin
+DOMAIN_SW_MODULE	data import module
+
+# Domain-specific institutions (possessive form)
+DOMAIN_INSTITUTION	NIH's
+DOMAIN_INSTITUTION	CDC's
+DOMAIN_INSTITUTION	EMBL's
+DOMAIN_INSTITUTION	the Pasteur Institute's
+DOMAIN_INSTITUTION	the Sanger Institute's
+DOMAIN_INSTITUTION	Johns Hopkins's
+
+# Domain-specific version suffixes
+DOMAIN_VERSION_SUFFIX	patch level
+DOMAIN_VERSION_SUFFIX	release
+
+# Domain-specific complexity/decidability claims
+DOMAIN_COMPLEXITY_PROP	NP-hard
+DOMAIN_COMPLEXITY_PROP	undecidable
+DOMAIN_COMPLEXITY_PROP	exponential-time
+DOMAIN_COMPLEXITY_PROP	intractable
+
+# Domain-specific distribution names
+DOMAIN_COMPLEXITY_DIST	a power-law distribution
+DOMAIN_COMPLEXITY_DIST	a Poisson distribution
+DOMAIN_COMPLEXITY_DIST	an exponential distribution

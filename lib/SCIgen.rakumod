@@ -300,6 +300,11 @@ sub domain-ai-prompt(Str:D $domain --> Str) is export {
     - DOMAIN_BANDWIDTH_TYPE: 3 entries — domain-specific throughput or transfer terms (e.g., "data transfer rate", "instrument bandwidth")
     - DOMAIN_SW_PLATFORM: 5 entries — domain-specific software platform names (e.g., "analysis platform", "instrument controller")
     - DOMAIN_SOFTWARE_SYSTEM: 4 entries — domain-specific software systems (e.g., "laboratory information system", "data management platform")
+    - DOMAIN_SW_MODULE: 5 entries — domain-specific software extension or plugin types (e.g., "analysis plugin", "detection module")
+    - DOMAIN_INSTITUTION: 6 entries — possessive form of research institutions or organizations (e.g., "NIH's", "CERN's")
+    - DOMAIN_VERSION_SUFFIX: 2 entries — domain-specific version or release qualifier (e.g., "patch level", "update")
+    - DOMAIN_COMPLEXITY_PROP: 4 entries — domain-specific theoretical complexity or decidability claims (e.g., "NP-hard", "undecidable")
+    - DOMAIN_COMPLEXITY_DIST: 3 entries — domain-specific statistical distribution names (e.g., "a power-law distribution", "a Poisson distribution")
 
     Requirements:
     - All entries must be realistic and specific to the {$domain} domain

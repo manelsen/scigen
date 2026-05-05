@@ -315,4 +315,34 @@ subtest 'biology profile overrides infrastructure wrappers' => {
        'DOMAIN_SOFTWARE_SYSTEM includes biology-specific systems';
 }
 
+subtest 'Round 4 wrappers eliminate remaining CS terms' => {
+    plan 10;
+    my $book = load-rules('scirules.in');
+    apply-domain($book, 'biology');
+
+    my @mod = $book.alternatives('DOMAIN_SW_MODULE').list.map(*.Str);
+    ok @mod.elems > 0, 'DOMAIN_SW_MODULE has biology entries';
+    ok @mod.grep(/'plugin'|'module'|'extension'/).elems > 0,
+       'DOMAIN_SW_MODULE includes biology-specific module terms';
+
+    my @inst = $book.alternatives('DOMAIN_INSTITUTION').list.map(*.Str);
+    ok @inst.elems > 0, 'DOMAIN_INSTITUTION has biology entries';
+    ok @inst.grep(/"NIH"|'EMBL'|'Pasteur'/).elems > 0,
+       'DOMAIN_INSTITUTION includes biology-specific institutions';
+
+    my @vs = $book.alternatives('DOMAIN_VERSION_SUFFIX').list.map(*.Str);
+    ok @vs.elems > 0, 'DOMAIN_VERSION_SUFFIX has biology entries';
+    ok @vs.grep(/'patch'|'release'/).elems > 0,
+       'DOMAIN_VERSION_SUFFIX includes biology-specific suffixes';
+
+    my @cp = $book.alternatives('DOMAIN_COMPLEXITY_PROP').list.map(*.Str);
+    ok @cp.elems > 0, 'DOMAIN_COMPLEXITY_PROP has biology entries';
+    ok @cp.grep(/'NP-hard'|'undecidable'|'intractable'/).elems > 0,
+       'DOMAIN_COMPLEXITY_PROP includes biology-specific claims';
+
+    my @cd = $book.alternatives('DOMAIN_COMPLEXITY_DIST').list.map(*.Str);
+    ok @cd.elems > 0, 'DOMAIN_COMPLEXITY_DIST has biology entries';
+    ok @cd.grep(/'power-law'|'Poisson'|'exponential'/).elems > 0,
+       'DOMAIN_COMPLEXITY_DIST includes biology-specific distributions';
+}
 done-testing;
